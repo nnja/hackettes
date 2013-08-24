@@ -25,7 +25,7 @@ public class Team implements ITeam {
 }
 
 class Shooter extends Player {
-    private static int[] numbers = {1, 2, 3};
+    private static int[] numbers = {1, 2, 3, 4, 5, 6};
     private static String[] names = {
             "", "Glock", "Ruger", "Smith", "Wesson", "Colt"
     };
@@ -50,7 +50,7 @@ class Shooter extends Player {
 }
 
 class Bullie extends Player {
-    private static int[] numbers = {4, 5, 6};
+    private static int[] numbers = {1, 2, 3, 4, 5, 6};
     private static String[] names = {
             "", "Biffen", "Doris", "Harry", "Vanheden", "Sickan"
     };
