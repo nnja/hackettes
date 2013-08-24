@@ -1,0 +1,183 @@
+.__                   __           __    __                 
+|  |__ _____    ____ |  | __ _____/  |__/  |_  ____   ______
+|  |  \\__  \ _/ ___\|  |/ // __ \   __\   __\/ __ \ /  ___/
+|   Y  \/ __ \\  \___|    <\  ___/|  |  |  | \  ___/ \___ \ 
+|___|  (____  /\___  >__|_ \\___  >__|  |__|  \___  >____  >
+     \/     \/     \/     \/    \/                \/     \/ 
+             a friendly programming competition
+                     hosted by Spotify.
+
+
+INTRO
+-----
+
+This file will give you the necessary information to get
+started with creating your hockey team. Please make sure
+you read all of it. Should there be any issues, contact
+any staff member, we'll be happy to help you.
+
+
+THE GOAL
+--------
+
+You and your team mates will program an ice hockey team
+using the API we have given you. After coding finishes,
+all the teams will be facing each other in an epic
+hockey tournament. Your goal, of course, is to win.
+
+
+REQUIREMENTS
+------------
+
+* A team number.
+* A computer.
+* Excellent team spirit.
+* A Java Development Kit (JDK). JDKs for the most common
+  operating systems have been provided on USB sticks provided
+  to you.
+
+
+TRYING OUT THE GAME
+-----------------------------------
+
+In the directory where this file resides, do:
+
+> java -jar hockey.jar
+
+It will give you an interface where you can play some 
+sample games between teams. Select a team in the left
+list, select another one in the right list, and hit play.
+Note that only the top teams in the respective lists are
+playable. The rest of the teams are to be created during 
+this contest, and your next step is to make your team 
+playable.
+
+
+SETTING UP YOUR FIRST TEAM
+--------------------------
+
+Now it's time to create and set up the directory for your team.
+As you entered the contest, you were given a team number, which
+is a number consisting of two digits.
+
+1) In the directory where this file is located, find the directory
+named "teamXX". This directory contains a sample implementation of
+a hockey team.
+
+2) Rename the directory to match your team number. I.e., if your
+team number is 01, you rename the directory to "team01".
+
+3) All the classes in your team directory must belong to a java
+package that corresponds to your team name (the directory name).
+
+  3.1) Open Team.java in your team directory.
+
+  3.2) Change the top row from "package teamXX;" to match your team
+       number, i.e. if your team number is 01, change this line to
+       "package team01;".
+
+4) Now it's time to make your team playable against some of the 
+already playable teams. Let's start off with compiling your team.
+
+  4.1) Execute the following command in the directory containing
+       this README file:
+       
+       > javac -classpath .:hockey.jar teamXX/*.java 
+         (where XX is your team number)
+         
+         If you're on windows, use ".;hockey.jar" instead of
+         ".:hockey.jar".
+
+5) Now your team should be playable in the game interface. Once
+again, start the game interface using: 
+
+> java -jar hockey.jar
+
+and try playing your team number against another already playable
+team. If everything is good, the hockey players should start moving
+once the game kicks off.
+
+
+CUSTOMIZING YOUR TEAM
+---------------------
+
+A team is created by implementing a class representing the team.
+This file is in your team directory, and it is named "Team.java".
+
+1) Open teamXX/Team.java in your favourite editor. 
+   (where XX is your team number)
+
+2) Modify the team to match your preferences. Set your team short
+name, team name, player colors. 
+
+3) Compile your team again, by standing in the directory containing
+this file and doing:
+
+   javac -classpath .:hockey.jar teamXX/*.java 
+   (where XX is your team number)
+         
+   If you're on windows, use ".;hockey.jar" instead of
+   ".:hockey.jar".
+
+4) Open the game interface again to see that your changes took
+effect.
+
+5) Note the getPlayer(index i) and getGoalie() methods in Team.java. 
+Have a look at the other player classes. This is where most of your
+player logic will go.
+
+
+DEVELOPING YOUR TEAM LOGIC
+--------------------------
+
+For documentation on the game and how to write your teams, please
+see the API documentation, which resides in the docs directory:
+ 
+docs/index.html
+
+We advice you to look at the source code for the other sample 
+teams. They reside in the "samples/" directory.
+ 
+
+TIME TO START CODING
+--------------------
+
+Alright, it's time to start developing your team now. In general,
+you'll  be fine by reading the documentation (see above) and looking
+at the sample code we have provided.
+
+Some other general advice:
+
+* You don't have much time. Start out by making something that
+  works. Something that can shoot at the goal. A goalie that
+  doesn't fail too hard.
+
+* Remember to test out penalty mode. You can do this in the game
+  interface.
+
+* Have fun, lots and lots of fun.
+
+
+
+
+SUBMITTING
+----------
+
+The final and most important part, submitting your team. You should
+submit a directory that contains the team you have developed, preferably
+in a zipped format. The directory should contain all the source code
+we need to run your team. As long as you copy all the .java files in
+the directory, you should be fine.
+
+Your team has to be submitted to the judges before the contest ends,
+and it should be submitted in the way requested by the contest judges.
+
+
+QUESTIONS
+---------
+
+If anything is unclear, contact one of the venue organizers. We'll
+be happy to help you!
+
+Good luck, and may the best team win!
+
