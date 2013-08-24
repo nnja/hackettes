@@ -13,3 +13,5 @@ jdk/
 
 #ignore intellij files
 *.iml
+
+.idea
