@@ -1,6 +1,7 @@
 package team03;
 
-import java.awt.Color;
+import java.awt.*;
+import java.awt.geom.Line2D;
 
 import hockey.api.Player;
 import hockey.api.GoalKeeper;
@@ -33,7 +34,7 @@ public class Team implements ITeam {
     }
 
     public Player getPlayer(int index) {
-        return new VoidPlayer(index);
+        return new AwarePlayer(index);
     }
 }
 
@@ -191,6 +192,56 @@ class BetterGoalie extends GoalKeeper {
         return false;
     }
 
+    public boolean intersects(Point k, Point z, Point p) {
+        return new Line2D.Float(k, z).ptLineDist(p) <= 40;
+    }
+
+    public void betterShooting() {
+        // find a teammate that I have a clear line to
+        for (int i=1; i<= 5; i++) {
+            boolean clear = true;
+
+            IPlayer teammate = getPlayer(i);
+            Point mePoint = new Point(getX(), getY());
+            Point teammatePoint = new Point(teammate.getStickX(), teammate.getStickY());
+
+            for (int j=1; j<=11; j++) {
+                // found an obstacle, look for next player
+                if (!clear){
+                    break;
+                }
+
+                // ignore other goalie and the player i'm currently looking at
+                if (j == 6 || j == i ){
+                    continue;
+                }
+
+                IPlayer obstacle = getPlayer(j);
+                Point obstaclePoint = new Point(obstacle.getX(), obstacle.getY());
+
+                boolean inter = intersects(mePoint, teammatePoint, obstaclePoint);
+                setMessage(inter + " me x: " + mePoint.getX() + "y:" + mePoint.getY() + " target x: " + teammatePoint.getX() + "y: " + teammatePoint.getY() +" obs() x: " + obstaclePoint.getX() + "y: " + obstaclePoint.getY());
+                if (inter){
+                    clear = false;
+                }
+            }
+
+            if (clear) {
+                setMessage("I'm clear to shoot to player# : " + i);
+
+                // turn towards my teammate
+                turn(teammate, MAX_TURN_SPEED); // Turn towards puck.
+
+                // shoot
+                shoot(teammate.getStick(), 10000); // Shoot (or throw)
+                return;
+            }
+        }
+
+        //  I didn't find a clear teammate, so just shoot towards the enemy goalie  (at least forward)
+        shoot(getPlayer(6), 10000); // Shoot (or throw)
+    }
+
     public void betterGoalieBehaviour() {
 	IPuck puck = getPuck();
 	int x = puck.getX();
@@ -204,26 +255,27 @@ class BetterGoalie extends GoalKeeper {
 	    if (y > 0) {
 		skate(-2600, 90, 200);
 		turn(-2600, 1500, MAX_TURN_SPEED);
-		setMessage("the puck is behind me, y > 0");
+//		setMessage("the puck is behind me, y > 0");
 	    }
 	    else {
 		skate(-2600, -90, 200);
 		turn(-2600, -1500, MAX_TURN_SPEED);
-		setMessage("the puck is behind me");
+//		setMessage("the puck is behind me");
 	    }
 	}
 	else {
 	    // otherwise, turn towards it
 	    turn(getPuck(), MAX_TURN_SPEED); // Turn towards puck.
 	    skate(-2550, 0, 200); // Stand in the middle of the goal.
-	    setMessage("the puck is in front of me");
+//	    setMessage("the puck is in front of me");
 	}
     }
 
     public void step() {
+        betterShooting();
+
         if (hasPuck()) {// If goalie has the puck
-	    setMessage("I have the puck.");
-            shoot(2600, 0, 10000); // Shoot (or throw)
+            betterShooting();
         } else {
             betterGoalieBehaviour();
         }
