@@ -193,10 +193,31 @@ class BetterGoalie extends GoalKeeper {
 
     public void betterGoalieBehaviour() {
 	IPuck puck = getPuck();
+	int x = puck.getX();
+	int y = puck.getY();
+	int speed = puck.getSpeed();
+	int heading = puck.getHeading();
 
-	setMessage("<Puck Heading: " + puck.getHeading() + " Speed: " + puck.getSpeed() + " X: " + puck.getX() + " Y: " + puck.getY() + " >");
-        skate(-2550, 0, 200); // Stand in the middle of the goal.
-        turn(getPuck(), MAX_TURN_SPEED); // Turn towards puck.
+
+	// if the puck is behind me, then shadow it
+	if ( x < -2600 ) {
+	    if (y > 0) {
+		skate(-2600, 90, 200);
+		turn(-2600, 1500, MAX_TURN_SPEED);
+		setMessage("the puck is behind me, y > 0");
+	    }
+	    else {
+		skate(-2600, -90, 200);
+		turn(-2600, -1500, MAX_TURN_SPEED);
+		setMessage("the puck is behind me");
+	    }
+	}
+	else {
+	    // otherwise, turn towards it
+	    turn(getPuck(), MAX_TURN_SPEED); // Turn towards puck.
+	    skate(-2550, 0, 200); // Stand in the middle of the goal.
+	    setMessage("the puck is in front of me");
+	}
     }
 
     public void step() {
