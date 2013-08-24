@@ -29,7 +29,7 @@ public class Team implements ITeam {
     }
 
     public GoalKeeper getGoalKeeper() {
-        return new Goalie();
+        return new BetterGoalie();
     }
 
     public Player getPlayer(int index) {
@@ -192,12 +192,16 @@ class BetterGoalie extends GoalKeeper {
     }
 
     public void betterGoalieBehaviour() {
+	IPuck puck = getPuck();
+
+	setMessage("<Puck Heading: " + puck.getHeading() + " Speed: " + puck.getSpeed() + " X: " + puck.getX() + " Y: " + puck.getY() + " >");
         skate(-2550, 0, 200); // Stand in the middle of the goal.
         turn(getPuck(), MAX_TURN_SPEED); // Turn towards puck.
     }
 
     public void step() {
         if (hasPuck()) {// If goalie has the puck
+	    setMessage("I have the puck.");
             shoot(2600, 0, 10000); // Shoot (or throw)
         } else {
             betterGoalieBehaviour();
