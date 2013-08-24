@@ -4,3 +4,9 @@
 *.jar
 *.war
 *.ear
+
+# mac specific
+.DS_Store
+
+# ignore the jdk folder
+jdk/
