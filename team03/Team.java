@@ -15,11 +15,7 @@ public class Team implements ITeam {
     public Color getSecondaryTeamColor() { return Color.BLACK; }
     public GoalKeeper getGoalKeeper() { return new Goalie(); }
     public Player getPlayer(int index) { 
-        if (index %2 == 0) {
-            return new TeamPlayer(index);
-        } else {
-            return new Shooter(index);
-        }
+        return new AwarePlayer(index);
     }
 }
 
@@ -89,5 +85,44 @@ class ShooterGoalie extends GoalKeeper {
         shoot(2600, 0, 10000); // Shoot (or throw)
     skate(-2550, 0, 200); // Stand in the middle of the goal.
     turn(getPuck(), MAX_TURN_SPEED); // Turn towards puck.
+    }
+}
+
+class AwarePlayer extends Player {
+  private static int[] numbers = {1, 2, 3, 4, 5, 6};
+  private static String[] names = {
+    "", "Glock", "Ruger", "Smith", "Wesson", "Colt"
+    };
+    private int index;
+
+    public AwarePlayer(int index) { this.index = index; }
+    public int getNumber() { return numbers[index]; }
+    public String getName() { return names[index]; }
+    public boolean isLeftHanded() { return false; }
+    public boolean teamHasPuck() {
+        IPuck puck = getPuck();
+
+        if (puck == null) {
+            return false;
+        }
+        if (!puck.isHeld()) {
+            return false;
+        }
+        if (puck.getHolder().isOpponent()) {
+            return false;
+        }
+        return true;
+    }
+    public void step() {
+        if (hasPuck()) {
+            setMessage("I have the puck now.");
+            skate(2600, 0, 1000);
+        } else if (teamHasPuck()) {
+            setMessage("My team has the puck");
+            skate(-2550, 0, 10000);
+        } else {
+            setMessage("No one or opponent has puck");
+            skate(getPuck(), 10000);
+        }
     }
 }
